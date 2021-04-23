@@ -3,6 +3,7 @@ package com.example.study.demo.algorithms;
 public class ListNode {
     int val;
     ListNode next;
+    ListNode random;
 
     ListNode() {
     }
