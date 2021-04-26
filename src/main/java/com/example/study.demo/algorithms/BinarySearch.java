@@ -1,8 +1,6 @@
 package com.example.study.demo.algorithms;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.Future;
 
 public class BinarySearch {
@@ -15,17 +13,21 @@ public class BinarySearch {
 //        int key = 4;
 //        System.out.print(search(key, a) > 0);
 //
-//        TreeNode node1 = new TreeNode(5);
-//        TreeNode node2 = new TreeNode(2);
-//        TreeNode node3 = new TreeNode(3);
-//        TreeNode node4 = new TreeNode(4);
-//        TreeNode node5 = new TreeNode(3);
-//        TreeNode node6 = new TreeNode(7);
-//        node1.left = node2;
-//        node1.right = node3;
-//        node2.left = node4;
-//        node3.left = node5;
-//        node3.right = node6;
+        TreeNode node1 = new TreeNode(4);
+        TreeNode node2 = new TreeNode(2);
+        TreeNode node3 = new TreeNode(3);
+        TreeNode node4 = new TreeNode(6);
+        TreeNode node5 = new TreeNode(5);
+        TreeNode node6 = new TreeNode(7);
+        TreeNode node7 = new TreeNode(1);
+        node1.left = node2;
+        node1.right = node4;
+        node2.left = node7;
+        node2.right = node3;
+        node4.left = node5;
+        node4.right = node6;
+        TreeNode node = increasingBST(node1);
+        System.out.println(node);
 //
 //        findSumPath(node1, 11);
 //
@@ -51,6 +53,8 @@ public class BinarySearch {
 
         int[] prices = {1, 2, 8, 3, 5, 7};
         maxProfit(prices);
+
+        System.out.println(shipwithdays(prices, 4));
     }
 
     public static int search(int key, int[] arr) {
@@ -144,6 +148,46 @@ public class BinarySearch {
         }
 
         System.out.println(sum);
+        return 0;
+    }
+
+    public static TreeNode increasingBST(TreeNode root) {
+        if (root == null) {
+            return root;
+        }
+        Queue<TreeNode> stack = new LinkedList<>();
+
+        pushStack(stack, root);
+        TreeNode p = stack.poll();
+        TreeNode res = p;
+        while (!stack.isEmpty()) {
+            TreeNode temp = stack.poll();
+            temp.left = null;
+            temp.right = null;
+            res.right = temp;
+            res = res.right;
+        }
+
+        return p;
+    }
+
+    public static void pushStack(Queue<TreeNode> stack, TreeNode node) {
+        if (null != node) {
+            pushStack(stack, node.left);
+            stack.offer(node);
+            pushStack(stack, node.right);
+        }
+    }
+
+    public static int shipwithdays(int[] ships, int days) {
+        int len = ships.length;
+        int first = 0;
+        int[] indexs = new int[days - 1];
+        for (int i = 0; i < days - 1; i++) {
+            indexs[i] = (len / 4) * i;
+        }
+        System.out.println(indexs);
+
         return 0;
     }
 }
